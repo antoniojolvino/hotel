@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres'
+    container_name: hotel-postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=hotel
+    volumes:
+      - ./sql/hotel.sql:/docker-entrypoint-initdb.d/hotel.sql

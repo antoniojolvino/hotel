@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /hotel
+spring:
+  datasource:
+    hikari:
+      connectionTimeout: 1000
+      maximumPoolSize: 5
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  jpa:
+    show-sql: true #This property I put just to see what is happening when using SQL statements
+    properties:
+      hibernate:
+        format_sql: true #This property I put jus to pretty print SQL statements in application console
+    hibernate:
+      ddl-auto: create
