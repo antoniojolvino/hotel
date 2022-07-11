@@ -1,3 +1,14 @@
+# Briefing
+
+* This project is a test for ALTEN Ca.
+* It was built using Spring Boot
+* Spring web was used as implementation to REST Controllers
+* Lombok was used to simplify pojos
+* Mapstruct was used as a mapper to transform objects between models and DTO's
+* PostgreSQL was used as Database
+* Spring Data JPA was used as JPA implementation
+* Some tests were built, using Junit Jupiter
+
 # How To Run
 
 ### Requirements
