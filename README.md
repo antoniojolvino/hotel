@@ -6,6 +6,7 @@
 * Lombok was used to simplify pojos
 * Mapstruct was used as a mapper to transform objects between models and DTO's
 * PostgreSQL was used as Database
+* Docker was used as container to run PostgreSQL
 * Spring Data JPA was used as JPA implementation
 * Some tests were built, using Junit Jupiter
 
