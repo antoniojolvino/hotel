@@ -38,7 +38,9 @@ $ mvn spring-boot:run
 * The application will start
 * Import the collection (located in the directory "**/collections**") in your Postman or Insomnia REST
 * Now you can test all endpoints
+
 ---
+
 # API Documentation
 
 ## Endpoints
@@ -54,6 +56,7 @@ $ mvn spring-boot:run
 | DELETE      | http://localhost:8080/hotel/bookings/{id}                     | Delete a booking by its id   |
 
 #### Booking Request Example
+
 ```
 {
 	"booking-id": 1,
@@ -69,6 +72,7 @@ $ mvn spring-boot:run
 ```
 
 #### Booking Response Example
+
 ```
 {
 	"booking-id": 1,
@@ -84,6 +88,7 @@ $ mvn spring-boot:run
 	}
 }
 ```
+
 ---
 
 ### Customer
@@ -93,7 +98,9 @@ $ mvn spring-boot:run
 | GET         | http://localhost:8080/hotel/customers      | Find all customers    |
 | GET         | http://localhost:8080/hotel/customers/{id} | Find a customer by ID |
 | POST        | http://localhost:8080/hotel/customers      | Create a new customer |
+
 #### Customer Request Example
+
 ```
 {
 	"identification-document": "A123",
@@ -103,6 +110,7 @@ $ mvn spring-boot:run
 ```
 
 #### Customer Response Example
+
 ```
 [
 	{
@@ -117,6 +125,7 @@ $ mvn spring-boot:run
 	}
 ]
 ```
+
 ---
 
 ### Room
@@ -125,7 +134,9 @@ $ mvn spring-boot:run
 |-------------|-----------------------------------|-------------------|
 | GET         | http://localhost:8080/hotel/rooms | Find all rooms    |
 | POST        | http://localhost:8080/hotel/rooms | Create a new room |
+
 #### Room Request Example
+
 ```
 {
 	"room-number":1
@@ -133,6 +144,7 @@ $ mvn spring-boot:run
 ```
 
 #### Room Response Example
+
 ```
 [
 	{
@@ -140,7 +152,9 @@ $ mvn spring-boot:run
 	}
 ]
 ```
+
 ---
+
 # Challenge Description
 
 Post-Covid scenario:

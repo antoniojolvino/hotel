@@ -20,8 +20,8 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Booking {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="booking_sequence")
-    @SequenceGenerator(name="booking_sequence", sequenceName="booking_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
+    @SequenceGenerator(name = "booking_sequence", sequenceName = "booking_seq")
     private Long id;
 
     @Column(nullable = false)

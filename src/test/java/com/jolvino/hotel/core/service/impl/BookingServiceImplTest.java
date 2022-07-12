@@ -27,10 +27,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class BookingServiceImplTest {
 
+    @InjectMocks
+    BookingServiceImpl service;
     @Mock
     private BookingRepository repository;
-
-    @InjectMocks BookingServiceImpl service;
 
     @Test
     @DisplayName("When given a room number, then return its bookings")
@@ -121,7 +121,7 @@ class BookingServiceImplTest {
         //Given
         Booking booking = MockObjects.mockBooking();
         //When - Then
-        when(repository.existsScheduleConflicts(any(),any(),any())).thenReturn(true);
+        when(repository.existsScheduleConflicts(any(), any(), any())).thenReturn(true);
         assertThrows(SchedulingException.class, () -> service.createBooking(booking));
     }
 

@@ -1,270 +1,270 @@
 {
-	"info": {
-		"_postman_id": "12123c6d-51f8-419c-b0f8-94f21bdd2d89",
-		"name": "Hotel",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Bookings",
-			"item": [
-				{
-					"name": "Bookings by room",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hotel/bookings?roomNumber=6",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"bookings"
-							],
-							"query": [
-								{
-									"key": "roomNumber",
-									"value": "6"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Booking",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"booking-id\": 1,\n\t\"start-date\": \"2022-07-12\",\n\t\"end-date\": \"2022-07-14\",\n\t\"room\": {\n\t\t\"room-number\": 6\n\t},\n\t\"customer\": {\n\t\t\"name\": \"John Doe\",\n\t\t\"email\": \"john.doe@gmail.com\",\n\t\t\"identification-document\": \"A123\"\n\t}\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/hotel/bookings",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"bookings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bookings by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hotel/bookings/30",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"bookings",
-								"30"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Booking",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"start-date\": \"2022-07-20\",\n\t\"end-date\": \"2022-07-21\",\n\t\"customer\": {\n\t\t\"identification-document\": \"A123\"\n\t},\n\t\"room\": {\n\t\t\"room-number\": 7\n\t}\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/hotel/bookings/55",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"bookings",
-								"55"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Booking",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hotel/bookings/23",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"bookings",
-								"23"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Rooms",
-			"item": [
-				{
-					"name": "All Rooms",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hotel/rooms",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"rooms"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Room",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"room-number\":6\n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/hotel/rooms",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"rooms"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Customers",
-			"item": [
-				{
-					"name": "All Customers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hotel/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Customer by ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/hotel/customers/A1232",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"customers",
-								"A1232"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Customer",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"identification-document\": \"A123\",\n\t\"name\": \"Antonio Jolvino\",\n\t\"email\": \"antonio.feitosa@gmail.com\" \n}"
-						},
-						"url": {
-							"raw": "http://localhost:8080/hotel/customers",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"hotel",
-								"customers"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "12123c6d-51f8-419c-b0f8-94f21bdd2d89",
+    "name": "Hotel",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Bookings by room",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/hotel/bookings?roomNumber=6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "bookings"
+              ],
+              "query": [
+                {
+                  "key": "roomNumber",
+                  "value": "6"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"booking-id\": 1,\n\t\"start-date\": \"2022-07-12\",\n\t\"end-date\": \"2022-07-14\",\n\t\"room\": {\n\t\t\"room-number\": 6\n\t},\n\t\"customer\": {\n\t\t\"name\": \"John Doe\",\n\t\t\"email\": \"john.doe@gmail.com\",\n\t\t\"identification-document\": \"A123\"\n\t}\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/hotel/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "bookings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bookings by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/hotel/bookings/30",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "bookings",
+                "30"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Booking",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"start-date\": \"2022-07-20\",\n\t\"end-date\": \"2022-07-21\",\n\t\"customer\": {\n\t\t\"identification-document\": \"A123\"\n\t},\n\t\"room\": {\n\t\t\"room-number\": 7\n\t}\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/hotel/bookings/55",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "bookings",
+                "55"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/hotel/bookings/23",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "bookings",
+                "23"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "All Rooms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/hotel/rooms",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Room",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"room-number\":6\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/hotel/rooms",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "rooms"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "All Customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/hotel/customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Customer by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/hotel/customers/A1232",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "customers",
+                "A1232"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"identification-document\": \"A123\",\n\t\"name\": \"Antonio Jolvino\",\n\t\"email\": \"antonio.feitosa@gmail.com\" \n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/hotel/customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "hotel",
+                "customers"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }

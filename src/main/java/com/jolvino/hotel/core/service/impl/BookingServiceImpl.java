@@ -37,22 +37,22 @@ public class BookingServiceImpl implements BookingService {
         return repository.save(booking);
     }
 
-    public void deleteBooking(Long bookingID){
+    public void deleteBooking(Long bookingID) {
         repository.deleteById(bookingID);
     }
 
-    public Booking updateBooking(Booking booking){
+    public Booking updateBooking(Booking booking) {
         Optional<Booking> optBooking = repository.findById(booking.getId());
         optBooking.orElseThrow(BookingNotFoundException::new);
         optBooking.filter(
-                bkn -> bkn.getRoom().equals(booking.getRoom())
-                        && bkn.getCustomer().equals(booking.getCustomer()))
+                        bkn -> bkn.getRoom().equals(booking.getRoom())
+                                && bkn.getCustomer().equals(booking.getCustomer()))
                 .orElseThrow(BookingUpdateException::new);
         validateSchedule(booking);
         return repository.save(booking);
     }
 
-    private void validateSchedule(Booking booking){
+    private void validateSchedule(Booking booking) {
         long period = ChronoUnit.DAYS.between(booking.getStartDate(), booking.getEndDate());
         long fromNow = ChronoUnit.DAYS.between(LocalDate.now(), booking.getStartDate());
         if (fromNow <= 0 //A - All reservations start at least the next day of booking

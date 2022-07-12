@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface RoomService {
     List<Room> findAllRooms();
+
     Room createRoom(Room room);
 }

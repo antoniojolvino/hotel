@@ -14,9 +14,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     /**
      * Verifies if there are no conflicts with the schedule
-     * @param number room number
+     *
+     * @param number    room number
      * @param startDate scheduling start date
-     * @param endDate scheduling end date
+     * @param endDate   scheduling end date
      * @return returns if there are conflicts in scheduling
      */
     @Query("select (count(b) > 0) from Booking b " +

@@ -37,11 +37,11 @@ public class HotelControllerAdvice {
     @ExceptionHandler(TransientPropertyValueException.class)
     public ResponseEntity<Object> processTransientPropertyValueException(TransientPropertyValueException ex) throws ClassNotFoundException {
         String detail = null;
-        if(ex.getTransientEntityName().equals(Room.class.getName()))
+        if (ex.getTransientEntityName().equals(Room.class.getName()))
             detail = "Room does not exist";
-        else if(ex.getTransientEntityName().equals(Customer.class.getName()))
+        else if (ex.getTransientEntityName().equals(Customer.class.getName()))
             detail = "Customer does not exist";
-        else if(ex.getTransientEntityName().equals(Booking.class.getName()))
+        else if (ex.getTransientEntityName().equals(Booking.class.getName()))
             detail = "Booking does not exist";
 
         return ResponseEntity.unprocessableEntity().body(
@@ -54,7 +54,7 @@ public class HotelControllerAdvice {
     }
 
     @ExceptionHandler(SchedulingException.class)
-    public ResponseEntity<Object> processInvalidSchedulingException(){
+    public ResponseEntity<Object> processInvalidSchedulingException() {
         return ResponseEntity.unprocessableEntity().body(
                 ErrorDTO.builder()
                         .statuesCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
@@ -64,7 +64,7 @@ public class HotelControllerAdvice {
     }
 
     @ExceptionHandler(DataAccessException.class)
-    public ResponseEntity<Object> processDataAccessException(){
+    public ResponseEntity<Object> processDataAccessException() {
         return ResponseEntity.unprocessableEntity().body(
                 ErrorDTO.builder()
                         .statuesCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
@@ -74,7 +74,7 @@ public class HotelControllerAdvice {
     }
 
     @ExceptionHandler(BookingUpdateException.class)
-    public ResponseEntity<Object> processBookingUpdateException(){
+    public ResponseEntity<Object> processBookingUpdateException() {
         return ResponseEntity.unprocessableEntity().body(
                 ErrorDTO.builder()
                         .statuesCode(HttpStatus.UNPROCESSABLE_ENTITY.value())

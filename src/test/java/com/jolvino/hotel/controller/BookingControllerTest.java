@@ -37,6 +37,13 @@ class BookingControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    private static ObjectMapper getObjectMapper() {
+        ObjectMapper objMapper = new ObjectMapper();
+        objMapper.registerModule(new JavaTimeModule());
+        objMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return objMapper;
+    }
+
     @Test
     @DisplayName("When given a room number, then return its bookings")
     void findBookingByRoomNumber() throws Exception {
@@ -48,10 +55,10 @@ class BookingControllerTest {
         when(mapper.modelToDto(anyList())).thenReturn(bookingDTOS);
         when(service.findBookingsByRoomNumber(any())).thenReturn(bookings);
         mockMvc.perform(
-                get("/bookings/")
-                        .param("roomNumber", "1")
-        ).andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].booking-id", Matchers.is( bookingDTOS.get(0).getId().intValue())));
+                        get("/bookings/")
+                                .param("roomNumber", "1")
+                ).andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].booking-id", Matchers.is(bookingDTOS.get(0).getId().intValue())));
     }
 
     @Test
@@ -65,8 +72,8 @@ class BookingControllerTest {
         when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
         when(service.findBookingById(any())).thenReturn(booking);
         mockMvc.perform(
-                get("/bookings/{bookingID}", "1")
-        ).andExpect(status().isOk())
+                        get("/bookings/{bookingID}", "1")
+                ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.booking-id", Matchers.is(1)));
     }
 
@@ -84,10 +91,10 @@ class BookingControllerTest {
         when(service.createBooking(any())).thenReturn(booking);
 
         mockMvc.perform(
-                post("/bookings")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(content)
-        ).andExpect(status().isCreated())
+                        post("/bookings")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(content)
+                ).andExpect(status().isCreated())
                 .andExpect(jsonPath("$.booking-id", Matchers.is(bookingDTO.getId().intValue())));
     }
 
@@ -115,17 +122,10 @@ class BookingControllerTest {
         when(service.updateBooking(any())).thenReturn(booking);
 
         mockMvc.perform(
-                put("/bookings/{bookingId}", "1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(content)
-        ).andExpect(status().isOk())
+                        put("/bookings/{bookingId}", "1")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(content)
+                ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.booking-id", Matchers.is(1)));
-    }
-
-    private static ObjectMapper getObjectMapper() {
-        ObjectMapper objMapper = new ObjectMapper();
-        objMapper.registerModule(new JavaTimeModule());
-        objMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        return objMapper;
     }
 }

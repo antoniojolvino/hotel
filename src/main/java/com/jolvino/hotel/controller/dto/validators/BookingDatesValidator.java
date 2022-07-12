@@ -17,6 +17,6 @@ public class BookingDatesValidator implements
                            ConstraintValidatorContext cxt) {
         long period = ChronoUnit.DAYS.between(bookingDTO.getStartDate(), bookingDTO.getEndDate());
 
-        return period >=0 && period <3;
+        return period >= 0 && period < 3;
     }
 }
