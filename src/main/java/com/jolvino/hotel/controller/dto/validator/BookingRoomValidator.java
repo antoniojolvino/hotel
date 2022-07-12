@@ -1,4 +1,4 @@
-package com.jolvino.hotel.controller.dto.validators;
+package com.jolvino.hotel.controller.dto.validator;
 
 import com.jolvino.hotel.controller.dto.RoomDTO;
 

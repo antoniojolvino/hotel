@@ -1,7 +1,7 @@
 package com.jolvino.hotel.controller;
 
 import com.jolvino.hotel.controller.dto.CustomerDTO;
-import com.jolvino.hotel.controller.dto.mappers.CustomerMapper;
+import com.jolvino.hotel.controller.dto.mapper.CustomerMapper;
 import com.jolvino.hotel.core.model.Customer;
 import com.jolvino.hotel.core.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<CustomerDTO>> findAllCustomers() {
-        List<CustomerDTO> response = mapper.modelToDTO(service.findAllCustomers());
+        List<CustomerDTO> response = mapper.modelToDto(service.findAllCustomers());
         return ResponseEntity.ok(response);
     }
 

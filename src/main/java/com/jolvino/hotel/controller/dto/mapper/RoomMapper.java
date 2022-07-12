@@ -1,4 +1,4 @@
-package com.jolvino.hotel.controller.dto.mappers;
+package com.jolvino.hotel.controller.dto.mapper;
 
 import com.jolvino.hotel.controller.dto.RoomDTO;
 import com.jolvino.hotel.core.model.Room;
@@ -12,5 +12,5 @@ public interface RoomMapper {
 
     RoomDTO modelToDto(Room room);
 
-    List<RoomDTO> modelToDTO(List<Room> rooms);
+    List<RoomDTO> modelToDto(List<Room> rooms);
 }

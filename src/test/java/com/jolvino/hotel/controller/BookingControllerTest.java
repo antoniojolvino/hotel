@@ -1,13 +1,10 @@
 package com.jolvino.hotel.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jolvino.hotel.controller.dto.BookingDTO;
-import com.jolvino.hotel.controller.dto.mappers.BookingMapper;
+import com.jolvino.hotel.controller.dto.mapper.BookingMapper;
 import com.jolvino.hotel.core.model.Booking;
 import com.jolvino.hotel.core.service.BookingService;
-import com.jolvino.hotel.mock.MockObjects;
+import com.jolvino.hotel.util.mock.MockObjects;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,19 +34,12 @@ class BookingControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    private static ObjectMapper getObjectMapper() {
-        ObjectMapper objMapper = new ObjectMapper();
-        objMapper.registerModule(new JavaTimeModule());
-        objMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        return objMapper;
-    }
-
     @Test
     @DisplayName("When given a room number, then return its bookings")
     void findBookingByRoomNumber() throws Exception {
         //Given
-        List<Booking> bookings = MockObjects.mockBookings();
-        List<BookingDTO> bookingDTOS = MockObjects.mockBookingsDTO();
+        List<Booking> bookings = MockObjects.getBookings();
+        List<BookingDTO> bookingDTOS = MockObjects.getBookingsDTO();
 
         //When - Then
         when(mapper.modelToDto(anyList())).thenReturn(bookingDTOS);
@@ -58,34 +48,34 @@ class BookingControllerTest {
                         get("/bookings/")
                                 .param("roomNumber", "1")
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].booking-id", Matchers.is(bookingDTOS.get(0).getId().intValue())));
+                .andExpect(jsonPath("$[0].booking-id",
+                        Matchers.is(bookingDTOS.get(0).getId().intValue())));
     }
 
     @Test
     @DisplayName("When given a booking ID, then return its booking")
     void findBookingById() throws Exception {
         //Given
-        Booking booking = MockObjects.mockBooking();
-        BookingDTO bookingDTO = MockObjects.mockBookingDTO();
+        Booking booking = MockObjects.getBooking();
+        BookingDTO bookingDTO = MockObjects.getBookingDTO();
+        int bookingId = 1;
 
         //When - Then
         when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
         when(service.findBookingById(any())).thenReturn(booking);
         mockMvc.perform(
-                        get("/bookings/{bookingID}", "1")
+                        get("/bookings/{bookingID}", bookingId)
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$.booking-id", Matchers.is(1)));
+                .andExpect(jsonPath("$.booking-id", Matchers.is(bookingId)));
     }
 
     @Test
     @DisplayName("When given a booking, then return it created")
     void createBooking() throws Exception {
-        ObjectMapper objMapper = getObjectMapper();
-
         //Given
-        Booking booking = MockObjects.mockBooking();
-        BookingDTO bookingDTO = MockObjects.mockBookingDTO();
-        String content = objMapper.writeValueAsString(bookingDTO);
+        Booking booking = MockObjects.getBooking();
+        BookingDTO bookingDTO = MockObjects.getBookingDTO();
+        String content = MockObjects.getBookingDTOAsJson();
         //When - Then
         when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
         when(service.createBooking(any())).thenReturn(booking);
@@ -95,37 +85,41 @@ class BookingControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
                 ).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.booking-id", Matchers.is(bookingDTO.getId().intValue())));
+                .andExpect(jsonPath("$.booking-id",
+                        Matchers.is(bookingDTO.getId().intValue())));
     }
 
     @Test
     @DisplayName("When given a booking id, then delete its booking")
     void deleteBooking() throws Exception {
+        //Given
+        int bookingId = 1;
+
         //When - Then
         doNothing().when(service).deleteBooking(any());
         mockMvc.perform(
-                delete("/bookings/{bookingId}", "1")
+                delete("/bookings/{bookingId}", bookingId)
         ).andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("When given a booking, then update it")
     void updateBooking() throws Exception {
-        ObjectMapper objMapper = getObjectMapper();
-
         //Given
-        Booking booking = MockObjects.mockBooking();
-        BookingDTO bookingDTO = MockObjects.mockBookingDTO();
-        String content = objMapper.writeValueAsString(bookingDTO);
+        Booking booking = MockObjects.getBooking();
+        BookingDTO bookingDTO = MockObjects.getBookingDTO();
+        String content = MockObjects.getBookingDTOAsJson();
+        int bookingId = 1;
         //When - Then
         when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
         when(service.updateBooking(any())).thenReturn(booking);
 
         mockMvc.perform(
-                        put("/bookings/{bookingId}", "1")
+                        put("/bookings/{bookingId}", bookingId)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$.booking-id", Matchers.is(1)));
+                .andExpect(jsonPath("$.booking-id",
+                        Matchers.is(bookingId)));
     }
 }

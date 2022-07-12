@@ -1,4 +1,4 @@
-package com.jolvino.hotel.controller.dto.mappers;
+package com.jolvino.hotel.controller.dto.mapper;
 
 import com.jolvino.hotel.controller.dto.CustomerDTO;
 import com.jolvino.hotel.core.model.Customer;
@@ -12,5 +12,5 @@ public interface CustomerMapper {
 
     CustomerDTO modelToDto(Customer customer);
 
-    List<CustomerDTO> modelToDTO(List<Customer> customers);
+    List<CustomerDTO> modelToDto(List<Customer> customers);
 }

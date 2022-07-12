@@ -1,4 +1,4 @@
-package com.jolvino.hotel.controller.dto.mappers;
+package com.jolvino.hotel.controller.dto.mapper;
 
 import com.jolvino.hotel.controller.dto.BookingDTO;
 import com.jolvino.hotel.core.model.Booking;

@@ -2,8 +2,8 @@ package com.jolvino.hotel.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.jolvino.hotel.controller.dto.validators.BookingCustomerConstraint;
-import com.jolvino.hotel.controller.dto.validators.BookingRoomConstraint;
+import com.jolvino.hotel.controller.dto.validator.BookingCustomerConstraint;
+import com.jolvino.hotel.controller.dto.validator.BookingRoomConstraint;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

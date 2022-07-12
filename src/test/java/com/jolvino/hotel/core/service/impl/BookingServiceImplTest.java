@@ -6,7 +6,7 @@ import com.jolvino.hotel.core.exceptions.SchedulingException;
 import com.jolvino.hotel.core.model.Booking;
 import com.jolvino.hotel.core.model.Customer;
 import com.jolvino.hotel.core.repository.BookingRepository;
-import com.jolvino.hotel.mock.MockObjects;
+import com.jolvino.hotel.util.mock.MockObjects;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 class BookingServiceImplTest {
 
     @InjectMocks
-    BookingServiceImpl service;
+    private BookingServiceImpl service;
     @Mock
     private BookingRepository repository;
 
@@ -37,7 +37,7 @@ class BookingServiceImplTest {
     void findBookingsByRoomNumber() {
 
         //Given
-        List<Booking> bookings = MockObjects.mockBookings();
+        List<Booking> bookings = MockObjects.getBookings();
 
         //When
         when(repository.findByRoomNumber(any())).thenReturn(bookings);
@@ -52,7 +52,7 @@ class BookingServiceImplTest {
     @DisplayName("When given a booking ID, then return its booking")
     void findBookingById() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         //When
         when(repository.findById(any())).thenReturn(Optional.of(booking));
         Booking response = service.findBookingById(1L);
@@ -64,7 +64,7 @@ class BookingServiceImplTest {
     @DisplayName("When given a booking, then return it created")
     void createBooking() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         //When
         when(repository.save(any())).thenReturn(booking);
         Booking response = service.createBooking(booking);
@@ -76,7 +76,7 @@ class BookingServiceImplTest {
     @DisplayName("When creating with the start date in the past, then return error")
     void createBookingErrorA() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         booking.setStartDate(LocalDate.now().plusDays(-1));
         //When - Then
         assertThrows(SchedulingException.class, () -> service.createBooking(booking));
@@ -86,7 +86,7 @@ class BookingServiceImplTest {
     @DisplayName("When creating with more than 30 days in advance, then return error")
     void createBookingErrorB() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         booking.setStartDate(LocalDate.now().plusDays(31));
         booking.setEndDate(LocalDate.now().plusDays(32));
         //When - Then
@@ -97,7 +97,7 @@ class BookingServiceImplTest {
     @DisplayName("When creating with inverted dates, then return error")
     void createBookingErrorC() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         booking.setStartDate(LocalDate.now().plusDays(2));
         booking.setEndDate(LocalDate.now().plusDays(1));
         //When - Then
@@ -108,7 +108,7 @@ class BookingServiceImplTest {
     @DisplayName("When creating with period longer than 3 days, then return error")
     void createBookingErrorD() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         booking.setStartDate(LocalDate.now().plusDays(1));
         booking.setEndDate(LocalDate.now().plusDays(4));
         //When - Then
@@ -119,7 +119,7 @@ class BookingServiceImplTest {
     @DisplayName("When creating with conflict schedule, then return error")
     void createBookingErrorE() {
         //Given
-        Booking booking = MockObjects.mockBooking();
+        Booking booking = MockObjects.getBooking();
         //When - Then
         when(repository.existsScheduleConflicts(any(), any(), any())).thenReturn(true);
         assertThrows(SchedulingException.class, () -> service.createBooking(booking));
@@ -151,8 +151,8 @@ class BookingServiceImplTest {
     @DisplayName("When given a booking, the update it")
     void updateBooking() {
         //Given
-        Booking bookingFound = MockObjects.mockBooking();
-        Booking newBooking = MockObjects.mockBooking();
+        Booking bookingFound = MockObjects.getBooking();
+        Booking newBooking = MockObjects.getBooking();
         newBooking.setStartDate(LocalDate.now().plusDays(5));
         newBooking.setEndDate(LocalDate.now().plusDays(7));
         //When
@@ -167,7 +167,7 @@ class BookingServiceImplTest {
     @DisplayName("When given a not found booking, then return error")
     void updateBookingErrorNotFound() {
         //Given
-        Booking newBooking = MockObjects.mockBooking();
+        Booking newBooking = MockObjects.getBooking();
         //When
         when(repository.findById(any())).thenReturn(Optional.empty());
         assertThrows(BookingNotFoundException.class, () -> service.updateBooking(newBooking));
@@ -178,8 +178,8 @@ class BookingServiceImplTest {
     @DisplayName("When given a booking from wrong customer, then return error")
     void updateBookingErrorNotFoundUpdate() {
         //Given
-        Booking bookingFound = MockObjects.mockBooking();
-        Booking newBooking = MockObjects.mockBooking();
+        Booking bookingFound = MockObjects.getBooking();
+        Booking newBooking = MockObjects.getBooking();
         newBooking.setCustomer(new Customer());
         //When
         when(repository.findById(any())).thenReturn(Optional.of(bookingFound));

@@ -1,7 +1,7 @@
 package com.jolvino.hotel.controller;
 
 import com.jolvino.hotel.controller.dto.BookingDTO;
-import com.jolvino.hotel.controller.dto.mappers.BookingMapper;
+import com.jolvino.hotel.controller.dto.mapper.BookingMapper;
 import com.jolvino.hotel.core.model.Booking;
 import com.jolvino.hotel.core.service.BookingService;
 import lombok.RequiredArgsConstructor;

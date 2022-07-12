@@ -1,4 +1,4 @@
-package com.jolvino.hotel.controller.dto.validators;
+package com.jolvino.hotel.controller.dto.validator;
 
 
 import javax.validation.Constraint;
