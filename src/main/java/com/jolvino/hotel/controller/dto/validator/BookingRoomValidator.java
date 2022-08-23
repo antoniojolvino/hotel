@@ -14,6 +14,6 @@ public class BookingRoomValidator implements
     @Override
     public boolean isValid(RoomDTO room,
                            ConstraintValidatorContext cxt) {
-        return room.getNumber() != null;
+        return room.getRoomNumber() != null;
     }
 }

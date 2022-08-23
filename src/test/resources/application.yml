@@ -4,25 +4,25 @@ server:
     context-path: /hotel
 spring:
   datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     hikari:
       connectionTimeout: 1000
       maximumPoolSize: 5
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/hotel}
+    url: jdbc:tc:postgresql:9.6:///hotel
     username: ${DB_USERNAME:pguser}
     password: ${DB_PASSWORD:admin}
   jpa:
+    defer-datasource-initialization: true
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
-      ddl-auto: none
-management:
+      ddl-auto: create
+  sql:
+    init:
+      mode: always
   endpoints:
     web:
       exposure:
         include: "*"
-#logging:
-#  level:
-#    org:
-#      hibernate:
-#        SQL: debug
-#        type:
-#          descriptor:
-#            sql: trace
+
+
+

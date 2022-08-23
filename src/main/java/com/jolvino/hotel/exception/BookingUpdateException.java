@@ -1,4 +1,4 @@
-package com.jolvino.hotel.core.exceptions;
+package com.jolvino.hotel.exception;
 
 public class BookingUpdateException extends RuntimeException {
 }

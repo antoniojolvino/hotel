@@ -1,4 +1,4 @@
-package com.jolvino.hotel.core.model;
+package com.jolvino.hotel.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,24 +10,18 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "room")
 @Table
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Customer {
-
+public class Room {
     @Id
-    private String identificationDocument;
+    @Column(name = "room_number")
+    private Integer roomNumber;
 
-    @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @OneToMany(mappedBy = "customer",
+    @OneToMany(mappedBy = "room",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @ToString.Exclude
@@ -37,8 +31,8 @@ public class Customer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Customer customer = (Customer) o;
-        return identificationDocument != null && Objects.equals(identificationDocument, customer.identificationDocument);
+        Room room = (Room) o;
+        return roomNumber != null && Objects.equals(roomNumber, room.roomNumber);
     }
 
     @Override

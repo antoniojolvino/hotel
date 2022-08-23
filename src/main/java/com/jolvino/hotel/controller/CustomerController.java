@@ -1,10 +1,9 @@
 package com.jolvino.hotel.controller;
 
 import com.jolvino.hotel.controller.dto.CustomerDTO;
-import com.jolvino.hotel.controller.dto.mapper.CustomerMapper;
-import com.jolvino.hotel.core.model.Customer;
-import com.jolvino.hotel.core.service.CustomerService;
+import com.jolvino.hotel.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,28 +14,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerController {
 
     private final CustomerService service;
 
-    private final CustomerMapper mapper;
-
     @GetMapping
     public ResponseEntity<List<CustomerDTO>> findAllCustomers() {
-        List<CustomerDTO> response = mapper.modelToDto(service.findAllCustomers());
-        return ResponseEntity.ok(response);
+        log.info("Starting to find all customers");
+
+        return ResponseEntity.ok(service.findAllCustomers());
     }
 
-    @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> findCustomerById(@PathVariable("customerId") String identificationDocument) {
-        CustomerDTO response = mapper.modelToDto(service.findById(identificationDocument));
-        return ResponseEntity.ok(response);
+    @GetMapping("/{identificationDocument}")
+    public ResponseEntity<CustomerDTO> findCustomerById(@PathVariable("identificationDocument") String identificationDocument) {
+        log.info("Starting customer search by identificationDocument: {}", identificationDocument);
+        return ResponseEntity.ok(service.findById(identificationDocument));
     }
 
     @PostMapping
     public ResponseEntity<CustomerDTO> createCustomer(@Valid @RequestBody CustomerDTO request) {
-        Customer customer = mapper.dtoToModel(request);
-        CustomerDTO response = mapper.modelToDto(service.createCustomer(customer));
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        log.info("Starting customer creation with identificationDocument: {}", request.getIdentificationDocument());
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createCustomer(request));
     }
 }

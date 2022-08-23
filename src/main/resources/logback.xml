@@ -1,0 +1,30 @@
+<configuration>
+    <contextName>hotel</contextName>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
+            <jsonFactoryDecorator class="net.logstash.logback.decorate.CharacterEscapesJsonFactoryDecorator">
+                <includeStandardAsciiEscapesForJSON>false</includeStandardAsciiEscapesForJSON>
+            </jsonFactoryDecorator>
+            <providers>
+                <pattern>
+                    <omitEmptyFields>true</omitEmptyFields>
+                    <pattern>
+                        {
+                        "app": "%contextName",
+                        "timestamp": "%date{dd/MM/yyyy HH:mm:ss.SSS}",
+                        "level": "%level",
+                        "correlationID": "%mdc{correlationID}",
+                        "message": "%m",
+                        "class": "%class"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="stdout"/>
+    </root>
+</configuration>

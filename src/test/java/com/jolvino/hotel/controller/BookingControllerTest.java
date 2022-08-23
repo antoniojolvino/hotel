@@ -1,9 +1,7 @@
 package com.jolvino.hotel.controller;
 
 import com.jolvino.hotel.controller.dto.BookingDTO;
-import com.jolvino.hotel.controller.dto.mapper.BookingMapper;
-import com.jolvino.hotel.core.model.Booking;
-import com.jolvino.hotel.core.service.BookingService;
+import com.jolvino.hotel.service.BookingService;
 import com.jolvino.hotel.util.mock.MockObjects;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
@@ -29,8 +27,6 @@ class BookingControllerTest {
 
     @MockBean
     BookingService service;
-    @MockBean
-    BookingMapper mapper;
     @Autowired
     MockMvc mockMvc;
 
@@ -38,17 +34,15 @@ class BookingControllerTest {
     @DisplayName("When given a room number, then return its bookings")
     void findBookingByRoomNumber() throws Exception {
         //Given
-        List<Booking> bookings = MockObjects.getBookings();
         List<BookingDTO> bookingDTOS = MockObjects.getBookingsDTO();
 
         //When - Then
-        when(mapper.modelToDto(anyList())).thenReturn(bookingDTOS);
-        when(service.findBookingsByRoomNumber(any())).thenReturn(bookings);
+        when(service.findBookingsByRoomNumber(any())).thenReturn(bookingDTOS);
         mockMvc.perform(
                         get("/bookings/")
                                 .param("roomNumber", "1")
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].booking-id",
+                .andExpect(jsonPath("$[0].id",
                         Matchers.is(bookingDTOS.get(0).getId().intValue())));
     }
 
@@ -56,37 +50,46 @@ class BookingControllerTest {
     @DisplayName("When given a booking ID, then return its booking")
     void findBookingById() throws Exception {
         //Given
-        Booking booking = MockObjects.getBooking();
         BookingDTO bookingDTO = MockObjects.getBookingDTO();
         int bookingId = 1;
 
         //When - Then
-        when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
-        when(service.findBookingById(any())).thenReturn(booking);
+        when(service.findBookingById(any())).thenReturn(bookingDTO);
         mockMvc.perform(
                         get("/bookings/{bookingID}", bookingId)
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$.booking-id", Matchers.is(bookingId)));
+                .andExpect(jsonPath("$.id", Matchers.is(bookingId)));
     }
 
     @Test
     @DisplayName("When given a booking, then return it created")
     void createBooking() throws Exception {
         //Given
-        Booking booking = MockObjects.getBooking();
         BookingDTO bookingDTO = MockObjects.getBookingDTO();
-        String content = MockObjects.getBookingDTOAsJson();
+        String content = MockObjects.getNewBookingDTOAsJson();
         //When - Then
-        when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
-        when(service.createBooking(any())).thenReturn(booking);
+        when(service.createBooking(any())).thenReturn(bookingDTO);
 
         mockMvc.perform(
                         post("/bookings")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
                 ).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.booking-id",
+                .andExpect(jsonPath("$.id",
                         Matchers.is(bookingDTO.getId().intValue())));
+    }
+
+    @Test
+    @DisplayName("When given an invalid booking request, then return bad request")
+    void createBookingBadRequest() throws Exception {
+        //Given
+        String content = MockObjects.getBookingDTOAsJson();
+        //When - Then
+        mockMvc.perform(
+                post("/bookings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -106,20 +109,34 @@ class BookingControllerTest {
     @DisplayName("When given a booking, then update it")
     void updateBooking() throws Exception {
         //Given
-        Booking booking = MockObjects.getBooking();
         BookingDTO bookingDTO = MockObjects.getBookingDTO();
-        String content = MockObjects.getBookingDTOAsJson();
+        String content = MockObjects.getNewBookingDTOAsJson();
         int bookingId = 1;
         //When - Then
-        when(mapper.modelToDto(any(Booking.class))).thenReturn(bookingDTO);
-        when(service.updateBooking(any())).thenReturn(booking);
+        when(service.updateBooking(any(), any())).thenReturn(bookingDTO);
 
         mockMvc.perform(
                         put("/bookings/{bookingId}", bookingId)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$.booking-id",
+                .andExpect(jsonPath("$.id",
                         Matchers.is(bookingId)));
     }
+
+    @Test
+    @DisplayName("When given an invalid booking request, then return bad request")
+    void updateBookingBadRequest() throws Exception {
+        //Given
+        String content = MockObjects.getBookingDTOAsJson();
+        int bookingId = 1;
+        //When - Then
+        mockMvc.perform(
+                put("/bookings/{bookingId}", bookingId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+        ).andExpect(status().isBadRequest());
+    }
+
+
 }

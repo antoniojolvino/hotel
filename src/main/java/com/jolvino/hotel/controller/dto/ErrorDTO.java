@@ -1,18 +1,25 @@
 package com.jolvino.hotel.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ErrorDTO {
-    @JsonProperty("status-code")
     private int statuesCode;
-    @JsonProperty("status-message")
     private String statusMessage;
-    @JsonProperty("detail-message")
     private String detail;
+    private List<Field> errorFields;
+
+    @Data
+    @Builder
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    public static class Field {
+        private String fieldName;
+        private String message;
+    }
 }

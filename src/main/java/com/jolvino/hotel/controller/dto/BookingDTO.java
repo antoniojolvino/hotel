@@ -1,35 +1,32 @@
 package com.jolvino.hotel.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jolvino.hotel.controller.dto.validator.BookingCustomerConstraint;
 import com.jolvino.hotel.controller.dto.validator.BookingRoomConstraint;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.time.LocalDate;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class BookingDTO {
-    @JsonProperty("booking-id")
+
+    @Null
     private Long id;
 
     @NotNull
-    @JsonProperty("start-date")
     private LocalDate startDate;
 
     @NotNull
-    @JsonProperty("end-date")
     private LocalDate endDate;
 
     @NotNull
     @BookingRoomConstraint
-    @JsonProperty("room")
     private RoomDTO room;
 
     @NotNull
     @BookingCustomerConstraint
-    @JsonProperty("customer")
     private CustomerDTO customer;
 }

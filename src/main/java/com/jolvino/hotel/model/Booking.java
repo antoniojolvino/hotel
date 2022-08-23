@@ -1,4 +1,4 @@
-package com.jolvino.hotel.core.model;
+package com.jolvino.hotel.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "booking")
 @Table
 @Getter
 @Setter
@@ -22,18 +22,21 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "booking_sequence")
     @SequenceGenerator(name = "booking_sequence", sequenceName = "booking_seq")
+    @Column(name="id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(nullable = false)
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "room", nullable = false)
     private Room room;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "customer", nullable = false)
     private Customer customer;
 
     @Override

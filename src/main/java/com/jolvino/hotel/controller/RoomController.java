@@ -1,10 +1,9 @@
 package com.jolvino.hotel.controller;
 
 import com.jolvino.hotel.controller.dto.RoomDTO;
-import com.jolvino.hotel.controller.dto.mapper.RoomMapper;
-import com.jolvino.hotel.core.model.Room;
-import com.jolvino.hotel.core.service.RoomService;
+import com.jolvino.hotel.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,22 +14,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/rooms")
 @RequiredArgsConstructor
+@Slf4j
 public class RoomController {
 
     private final RoomService service;
 
-    private final RoomMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<RoomDTO>> findAllRooms() {
-        List<RoomDTO> response = mapper.modelToDto(service.findAllRooms());
-        return ResponseEntity.ok(response);
+        log.info("Starting to find all rooms");
+        return ResponseEntity.ok(service.findAllRooms());
     }
 
     @PostMapping
     public ResponseEntity<RoomDTO> createRoom(@Valid @RequestBody RoomDTO request) {
-        Room room = mapper.dtoToModel(request);
-        RoomDTO response = mapper.modelToDto(service.createRoom(room));
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        log.info("Starting room creation with roomNumber: {}", request.getRoomNumber());
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createRoom(request));
     }
 }

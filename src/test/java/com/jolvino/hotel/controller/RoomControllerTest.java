@@ -1,9 +1,7 @@
 package com.jolvino.hotel.controller;
 
 import com.jolvino.hotel.controller.dto.RoomDTO;
-import com.jolvino.hotel.controller.dto.mapper.RoomMapper;
-import com.jolvino.hotel.core.model.Room;
-import com.jolvino.hotel.core.service.RoomService;
+import com.jolvino.hotel.service.RoomService;
 import com.jolvino.hotel.util.mock.MockObjects;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -25,49 +24,43 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(RoomController.class)
-
 class RoomControllerTest {
 
     @MockBean
     RoomService service;
-    @MockBean
-    RoomMapper mapper;
     @Autowired
     MockMvc mockMvc;
 
     @Test
     void findAllRooms() throws Exception {
         //Given
-        List<Room> rooms = MockObjects.getRooms();
         List<RoomDTO> roomsDTO = MockObjects.getRoomsDTO();
 
         //When - Then
-        when(mapper.modelToDto(anyList())).thenReturn(roomsDTO);
-        when(service.findAllRooms()).thenReturn(rooms);
+        when(service.findAllRooms()).thenReturn(roomsDTO);
         mockMvc.perform(
                         get("/rooms")
                 ).andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].room-number",
-                        Matchers.is(roomsDTO.get(0).getNumber())));
+                .andExpect(jsonPath("$[0].roomNumber",
+                        Matchers.is(roomsDTO.get(0).getRoomNumber())));
     }
 
     @Test
     void createRoom() throws Exception {
         //Given
-        Room room = MockObjects.getRoom();
         RoomDTO roomDTO = MockObjects.getRoomDTO();
         String content = MockObjects.getRoomDTOAsJson();
 
         //When - Then
-        when(mapper.modelToDto(any(Room.class))).thenReturn(roomDTO);
-        when(service.createRoom(any())).thenReturn(room);
+        when(service.createRoom(any())).thenReturn(roomDTO);
 
         mockMvc.perform(
                         post("/rooms")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
                 ).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.room-number",
-                        Matchers.is(roomDTO.getNumber())));
+                .andExpect(jsonPath("$.roomNumber",
+                        Matchers.is(roomDTO.getRoomNumber())));
     }
+
 }

@@ -1,15 +1,12 @@
 spring:
+  h2:
+    console:
+      enabled: true
   datasource:
-    hikari:
-      connectionTimeout: 1000
-      maximumPoolSize: 5
-    url: jdbc:h2:mem:testdb
+    platform: h2
+    url: jdbc:h2:mem:appdb
     username: sa
     password:
   jpa:
-    show-sql: true #This property I put just to see what is happening when using SQL statements
-    properties:
-      hibernate:
-        format_sql: true #This property I put jus to pretty print SQL statements in application console
     hibernate:
       ddl-auto: create

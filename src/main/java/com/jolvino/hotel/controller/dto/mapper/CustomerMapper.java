@@ -1,7 +1,7 @@
 package com.jolvino.hotel.controller.dto.mapper;
 
 import com.jolvino.hotel.controller.dto.CustomerDTO;
-import com.jolvino.hotel.core.model.Customer;
+import com.jolvino.hotel.model.Customer;
 import org.mapstruct.Mapper;
 
 import java.util.List;
